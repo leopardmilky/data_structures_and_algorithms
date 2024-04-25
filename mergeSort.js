@@ -34,6 +34,7 @@ function merge(arr1, arr2) {    // 분할한 부분 리스트 원소끼리 비�
 }
 
 function mergeSort(arr) {   // 리스트 분할 함수.
+    console.log("ARRRRRRRRRR: ", arr);
     if(arr.length <= 1) return arr;
     let mid = Math.floor(arr.length / 2);
     let left = mergeSort(arr.slice(0, mid));    // arr의 0번째 부터 mid전까지 반복 분할.
