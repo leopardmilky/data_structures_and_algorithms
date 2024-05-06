@@ -11,13 +11,22 @@ function bubbleSort(arr) {
     for(let i = arr.length; i > 0; i--) {   // 리스트를 한 바퀴 순회. (리스트 크기 만큼 반복해야 함)
         for(let j = 0; j < i - 1; j++) {    // 리스트 첫번째 원소부터 시작. (리스트 크기-1 만큼 반복)
             if(arr[j] > arr[j+1]) {         // 인접한 두개 비교. 앞에 원소가 뒤의 원소보다 크면 교환.
-                let temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
+                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
             }
         }
     }
     return arr;
 }
 
-bubbleSort([2,4,12,7,1,0])
+function bubbleSort2(arr) {
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 0; j < arr.length - 1; j++) {
+            if(arr[j] > arr[j+1]) {
+                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}
+
+bubbleSort([2,4,12,7,1,0]);

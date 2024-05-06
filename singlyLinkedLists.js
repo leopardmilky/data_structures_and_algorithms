@@ -17,8 +17,8 @@ class SinglyLinkedList {
             this.head = newNode;
             this.tail = this.head;
         } else {    // 노드가 있을때
-            this.tail.next = newNode;
-            this.tail = newNode;
+            this.tail.next = newNode;   // tail의 다음 노드가 뭔지 저장.
+            this.tail = newNode;        // tail이 무슨 노드인지 저장. (끝에 노드를 추가 하는 것이기 때문에 tail과 tail.next가 같은 노드임)
         }
         this.length++;
         return this;
