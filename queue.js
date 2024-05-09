@@ -1,3 +1,7 @@
+/*
+Queue: 선입선출 방식. (first가 선출됨)
+*/
+
 class Node {
     constructor(value) {
         this.value = value;
