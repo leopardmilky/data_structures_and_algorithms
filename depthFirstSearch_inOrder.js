@@ -1,5 +1,5 @@
 /*
-깊이우선탐색-전위순회(DFS pre-order)
+깊이우선탐색-중위순회(DFS in-order)
 */
 
 class Node {
@@ -40,12 +40,12 @@ class BinarySearchTree {
         }
     }
 
-    DFSPreOrder() {
+    DFSInOrder() {
         let data = [];
         function traverse(node) {
+            if(node.left) traverse(node.left);      // node.left && traverse(node.left); 조건문을 사용하지 않는 방법도 있음.
             data.push(node.value);
-            if(node.left) traverse(node.left);
-            if(node.right) traverse(node.right);
+            if(node.right) traverse(node.right);    // node.right && traverse(node.left);
         }
         traverse(this.root);
         return data;

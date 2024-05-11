@@ -1,5 +1,10 @@
 /*
 너비우선탐색(breadth-first search, BFS)
+
+
+*BFS vs DFS
+- BFS는 트리구조가 아주 넒다면 큐를 저장하는데 많은 자원을 소비해야함.
+- DFS는 트리구조가 깊다면 많은 자원을 사용함.
 */
 
 class Node {
