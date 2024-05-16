@@ -18,57 +18,57 @@ class MaxBinaryHeap {
     }
 
     bubbleUp() {
-        let idx = this.values.length - 1;
-        const element = this.values[idx];
+        let idx = this.values.length - 1;               // 마지막 인덱스(idx).
+        const element = this.values[idx];               // 마지막 인덱스 값(비교element).
         while(idx > 0) {
-            let parentIdx = Math.floor((idx - 1)/2);
-            let parent = this.values[parentIdx];
-            if(element <= parent) break;
-            this.values[parentIdx] = element;
-            this.values[idx] = parent;
-            idx = parentIdx;
+            let parentIdx = Math.floor((idx - 1)/2);    // 해당 idx의 부모 인덱스(parentIdx).
+            let parent = this.values[parentIdx];        // 해당 idx의 부모 인덱스 값(parent).
+            if(element <= parent) break;                // 해당 idx의 값이 부모idx 값보다 작으면 올바른 위치이므로 종료.
+            this.values[parentIdx] = element;           // 그렇지 않으면 element를 parentIdx위치에 삽입.
+            this.values[idx] = parent;                  // parent는 idx위치에 삽입.
+            idx = parentIdx;                            // 그리고 idx를 parentIdx로 갱신하고 루프를 돔.
         }
     }
 
-    extractMax() {
-        const max = this.values[0];
-        const end = this.values.pop();
-        this.values[0] = end;
+    extractMax() {  // root를 제거하고 재정렬.
+        const max = this.values[0];                     // root값.
+        const end = this.values.pop();                  // 맨 마지막 값.
+        this.values[0] = end;                           // 마지막 값을 root에 위치 시키고 재정렬(sinkDown함수 실행).
         this.sinkDown();
         return max;
     }
 
     sinkDown() {
-        let idx = 0;
+        let idx = 0;                                    // 인덱스 0부터 시작.
         const length = this.values.length;
-        const element = this.values[0];
+        const element = this.values[0];                 // 인덱스 0 값(비교element).
         while(true) {
-            let leftChildIdx = 2 * idx + 1;
-            let rightChildIdx = 2 * idx + 2;
-            let leftChild, rightChild;
-            let swap = null;
+            let leftChildIdx = 2 * idx + 1;             // 해당 idx의 왼쪽 자식노드 인덱스.
+            let rightChildIdx = 2 * idx + 2;            // 해당 idx의 오른쪽 자식노드 인덱스.
+            let leftChild, rightChild;                  // 자식노드 값을 담을 변수.
+            let swap = null;                            // 스왑할 인덱스를 담을 변수.
 
             if(leftChildIdx < length) {
-                leftChild = this.values[leftChildIdx];
-                if(leftChild > element) {
-                    swap = leftChildIdx;
+                leftChild = this.values[leftChildIdx];  // 왼쪽 자식노드 값 할당.
+                if(leftChild > element) {               // 왼쪽 자식노드가 element보다 크면,
+                    swap = leftChildIdx;                // swap 변수에 leftChildIdx 할당.
                 }
             }
 
             if(rightChildIdx < length) {
-                rightChild = this.valuesp[rightChildIdx];
+                rightChild = this.values[rightChildIdx];        // 오른쪽 자식노드 값 할당.
                 if(
-                    (swap === null && rightChild > element) || 
-                    (swap !== null && rightChild > leftChild)
+                    (swap === null && rightChild > element) ||  // swap이 null이면서 오른쪽 자식노드 값이 element보다 크거나,
+                    (swap !== null && rightChild > leftChild)   // 혹은 swap이 null이 아니면서 오른쪽 자식노드 값이 왼쪽보다 클때,
                 ) {
-                    swap = rightChildIdx;
+                    swap = rightChildIdx;                       // swap 변수에 rightChildIdx 할당.
                 }
             }
 
-            if(swap === null) break;
-            this.values[idx] = this.values[swap];
-            this.values[swap] = element;
-            idx = swap;
+            if(swap === null) break;                            // swap이 여전히 null이면 종료.
+            this.values[idx] = this.values[swap];               // swap인덱스를 idx위치에 할당.
+            this.values[swap] = element;                        // 비교element를 swap인덱스 위치에 할당.
+            idx = swap;                                         // idx가 swap인덱스로 갱신. 그리고 반복...
         }
     }
 }
