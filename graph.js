@@ -30,6 +30,68 @@ class Graph {
         }
         delete this.adjacencyList[vertex];  // 마지막으로 해당 노드 제거.
     }
+
+    depthFirstRecursive(start) {    // 깊이우선그래프(DFS)-재귀적용법
+        const result = [];
+        const visited = {};
+        const adjacencyList = this.adjacencyList;
+
+        (function dfs(vertex) {
+            if(!vertex) return null;
+            visited[vertex] = true;
+            result.push(vertex);
+            adjacencyList[vertex].forEach(neighbor => {
+                if(!visited[neighbor]) {
+                    return dfs(neighbor)
+                }
+            });
+        })(start);
+
+        return result;
+    }
+
+    depthFirstIterative(start) {    // 깊이우선그래프(DFS)-반복적용법
+        const stack = [start];
+        const result = [];
+        const visited = {};
+        let currentVertex;
+
+        visited[start] = true;
+        while(stack.length) {
+            currentVertex = stack.pop();
+            result.push(currentVertex);
+
+            this.adjacencyList[currentVertex].forEach(neighbor => {
+               if(!visited[neighbor]) {
+                   visited[neighbor] = true;
+                   stack.push(neighbor)
+               } 
+            });
+        }
+        return result;
+    }
+
+    breadthFirst(start) {       // 넓이우선그래프(BFS)
+        const queue = [start];
+        const result = [];
+        const visited = {};
+        let currentVertex;
+        visited[start] = true;
+
+        while(queue.length) {
+            currentVertex = queue.shift();
+            result.push(currentVertex);
+           
+
+            this.adjacencyList[currentVertex].forEach(neighbor => {
+                if(!visited[neighbor]){
+                    visited[neighbor] = true;
+                    queue.push(neighbor);
+                }
+            });
+        }
+        return result;
+    }
 }
 
 
