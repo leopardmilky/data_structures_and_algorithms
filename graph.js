@@ -24,7 +24,7 @@ class Graph {
     }
 
     removeVertex(vertex) {  // 노드 제거
-        while(this.adjacencyList[vertex].length) {  // 해당 노드와 연결되어 있는 노드들과 각각의 연결되어 있는 노드들에서 해당 노드 연결 제거.
+        while(this.adjacencyList[vertex].length) {  // 해당 노드와 연결되어 있는 노드들(배열)과 각각의 연결되어 있는 노드들에서 해당 노드 연결 제거.
             const adjacentVertex = this.adjacencyList[vertex].pop();
             this.removeEdge(vertex, adjacentVertex);
         }
