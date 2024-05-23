@@ -25,8 +25,9 @@ class Graph {
 
     removeVertex(vertex) {  // 노드 제거
         while(this.adjacencyList[vertex].length) {  // 해당 노드와 연결되어 있는 노드들(배열)과 각각의 연결되어 있는 노드들에서 해당 노드 연결 제거.
-            const adjacentVertex = this.adjacencyList[vertex].pop();
-            this.removeEdge(vertex, adjacentVertex);
+            // const adjacentVertex = this.adjacencyList[vertex].pop();
+            // this.removeEdge(vertex, adjacentVertex);
+            this.removeEdge(vertex, this.adjacencyList[vertex].pop());
         }
         delete this.adjacencyList[vertex];  // 마지막으로 해당 노드 제거.
     }
@@ -34,8 +35,10 @@ class Graph {
     depthFirstRecursive(start) {    // 깊이우선그래프(DFS)-재귀적용법
         const result = [];
         const visited = {};
-        const adjacencyList = this.adjacencyList;
 
+        // 방법1
+        /*
+        const adjacencyList = this.adjacencyList;
         (function dfs(vertex) {
             if(!vertex) return null;
             visited[vertex] = true;
@@ -46,6 +49,20 @@ class Graph {
                 }
             });
         })(start);
+        */
+
+        // 방법2
+        const dfs = (vertex) => {
+            if(!vertex) return null;
+            visited[vertex] = true;
+            result.push(vertex);
+            this.adjacencyList[vertex].forEach(neighbor => {
+                if(!visited[neighbor]) {
+                    dfs(neighbor);
+                }
+            });
+        }
+        dfs(start)
 
         return result;
     }
