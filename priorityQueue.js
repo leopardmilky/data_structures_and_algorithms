@@ -1,3 +1,10 @@
+class Node {
+    constructor(val, priority){
+        this.val = val;
+        this.priority = priority;
+    }
+}
+
 class PriorityQueue {
     constructor(){
         this.values = [];
@@ -14,9 +21,9 @@ class PriorityQueue {
             let parentIdx = Math.floor((idx - 1) / 2);        // 부모 노드 인덱스
             let parent = this.values[parentIdx];            // 부모 노드
             if(element.priority >= parent.priority) break;  // 비교노드의 우선순위가 부모 노드의 우선순위 보다 높거나 같으면 종료. (낮은 숫자가 높은 우선순위)
-            this.values[parentIdx] = element;               // 그렇지 않으면 부모노드를 비교노드로 수정
+            this.values[parentIdx] = element;               // 그렇지 않으면 부모노드를 비교노드로 수정 (부모노드와 비교노드 자리바꿈)
             this.values[idx] = parent;                      // 비교노드를 부모노드로 수정
-            idx = parentIdx;                                // 비교 인덱스를 부모 인덱스로 수정 그리고 반복
+            idx = parentIdx;                                // 비교 인덱스를 부모 인덱스로 수정(부모 인덱스가 새로운 비교 인덱스가 되는거) 그리고 반복
         }
     }
     dequeue() {     // 노드 제거(가장 우선 순위의 노드)
@@ -28,7 +35,7 @@ class PriorityQueue {
         }
         return min;
     }
-    sinkDown() {
+    sinkDown() {    // 최우선 순위인 루트 노드를 제거 후, 마지막 노드가 루트 자리에 올라왔을 때, 이 새로운 루트노드를 적절한 위치로 이동 시키는 것.
         let idx = 0;    // 루트노드
         const length = this.values.length;
         const element = this.values[0];
@@ -58,13 +65,6 @@ class PriorityQueue {
             this.values[swap] = element;
             idx = swap;
         }
-    }
-}
-
-class Node {
-    constructor(val, priority){
-        this.val = val;
-        this.priority = priority;
     }
 }
 
