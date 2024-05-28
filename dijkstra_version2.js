@@ -85,7 +85,7 @@ class WeightedGraph {
         const previous = {};
         let path = []
         let smallest;
-
+        // 초기상태 작업
         for(let vertex in this.adjacencyList){
             if(vertex === start){
                 distances[vertex] = 0;
@@ -97,24 +97,24 @@ class WeightedGraph {
             previous[vertex] = null;
         }
         
-        while(nodes.values.length){
+        while(nodes.values.length) {
             smallest = nodes.dequeue().val;
-            if(smallest === finish){
-                while(previous[smallest]){
+            if(smallest === finish) {       // 선택된 노드가 finish라면 루프 종료. 경로를 구축하기 위해 previous를 추적하며 경로를 path에 저장.
+                while(previous[smallest]) {
                     path.push(smallest);
                     smallest = previous[smallest];
                 }
                 break;
             } 
-            if(smallest || distances[smallest] !== Infinity){
-                for(let neighbor in this.adjacencyList[smallest]){
-                    let nextNode = this.adjacencyList[smallest][neighbor];
-                    let candidate = distances[smallest] + nextNode.weight;
-                    let nextNeighbor = nextNode.node;
-                    if(candidate < distances[nextNeighbor]){
-                        distances[nextNeighbor] = candidate;
-                        previous[nextNeighbor] = smallest;
-                        nodes.enqueue(nextNeighbor, candidate);
+            if(smallest || distances[smallest] !== Infinity) {              // 선택된 노드가 유효한 노드인지 확인(Infinity이면 안되기 때문)
+                for(let neighbor in this.adjacencyList[smallest]) {         // 선택된 노드의 인접 노드를 탐색
+                    let nextNode = this.adjacencyList[smallest][neighbor];  // 인접 노드의 정보를 가져옴(val, priority)
+                    let candidate = distances[smallest] + nextNode.weight;  // 현재 노드를 통해 인접 노드로 가는 새로운 거리를 계산.(현재 노드까지의 거리 + 인접 노드까지 거리)
+                    let nextNeighbor = nextNode.node;                       // 인접 노드의 이름(val)
+                    if(candidate < distances[nextNeighbor]) {               // 새로운 거리가 기존 거리보다 짧으면 갱신함.
+                        distances[nextNeighbor] = candidate;                // 거리 갱신.
+                        previous[nextNeighbor] = smallest;                  // 이전 노드 기록.
+                        nodes.enqueue(nextNeighbor, candidate);             // 인접 노드를 큐에 추가.
                     }
                 }
             }
